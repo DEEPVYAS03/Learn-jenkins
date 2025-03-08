@@ -40,6 +40,7 @@ pipeline {
                     }
                     post {
                         always {
+                            sh 'ls -R test-results'
                             junit 'test-results/junit.xml'
                         }
                     }
@@ -58,12 +59,15 @@ pipeline {
                             npm install serve
                             node_modules/.bin/serve -s build &
                             sleep 10
-                            npx playwright test  --reporter=html,junit
+                            npx playwright test --reporter=junit,html --output=test-results
+
                         '''
                     }
 
                     post {
                         always {
+                            sh 'ls -R test-results'
+                            junit 'test-results/junit.xml'
                             publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'playwright-report', reportFiles: 'index.html', reportName: 'Playwright HTML Report', reportTitles: '', useWrapperFileDirectly: true])
                         }
                     }

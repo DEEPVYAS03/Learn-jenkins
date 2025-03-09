@@ -18,13 +18,13 @@ stages {
         steps {
             sh '''
                 echo "Before starting container"
-                docker ps -a  # Check all containers before running
+                docker ps -a 
                 
                 echo "With docker"
                 ls -la
 
                 echo "After running container"
-                docker ps  # Check running containers
+                docker ps  
             '''
         }
     }
@@ -33,7 +33,7 @@ stages {
         steps {
             sh '''
                 echo "After docker stage"
-                docker ps -a  # Check if the container still exists
+                docker ps -a  
             '''
         }
     }
